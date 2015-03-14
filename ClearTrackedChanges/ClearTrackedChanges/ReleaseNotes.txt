@@ -1,0 +1,5 @@
+v. 1.0.1
+Extension upgraded to support Visual Studio 2013.
+
+v. 1.0.0
+Initial version.
