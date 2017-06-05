@@ -1,11 +1,10 @@
-﻿using System;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
+using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using EnvDTE;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace BorislavIvanov.ClearTrackedChanges
 {
@@ -54,17 +53,17 @@ namespace BorislavIvanov.ClearTrackedChanges
         /// </summary>
         protected override void Initialize()
         {
-            Debug.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
+            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
             OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if ( null != mcs )
+            if (null != mcs)
             {
                 // Create the command for the menu item.
                 CommandID menuCommandID = new CommandID(GuidList.guidClearTrackedChangesCmdSet, (int)PkgCmdIDList.cmdidClearTrackedChanges);
-                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID );
-                mcs.AddCommand( menuItem );
+                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
+                mcs.AddCommand(menuItem);
             }
         }
         #endregion
@@ -76,7 +75,7 @@ namespace BorislavIvanov.ClearTrackedChanges
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            DTE vsEnvironment = (DTE)GetService(typeof(SDTE));
+            DTE vsEnvironment = (DTE)GetService(typeof(DTE));
 
             var trackChangesProperty = vsEnvironment.Properties["TextEditor", "General"].Item("TrackChanges");
             if (trackChangesProperty != null && Convert.ToBoolean(trackChangesProperty.Value))

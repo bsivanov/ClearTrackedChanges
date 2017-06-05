@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="07c4bfc1-60dd-4aea-be7f-5d4be5c664e3" Version="1.0.1" Language="en-US" Publisher="Borislav Ivanov" />
+    <Identity Id="07c4bfc1-60dd-4aea-be7f-5d4be5c664e3" Version="1.0.2" Language="en-US" Publisher="Borislav Ivanov" />
     <DisplayName>Clear Tracked Changes</DisplayName>
-    <Description xml:space="preserve">Installs a command that clears tracked changes (the marks in the left part of the editor). The command is added to Tools menu.</Description>
+    <Description xml:space="preserve">Installs a command that clears tracked changes - the colored marks in the left part of the editor, which appear during code editing. The command is added to Tools menu.</Description>
     <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
     <Icon>Resources\Package.ico</Icon>
     <Tags>track changes, tracked changes</Tags>
   </Metadata>
   <Installation InstalledByMsi="false">
-    <InstallationTarget Version="[11.0,]" Id="Microsoft.VisualStudio.Pro" />
-    <InstallationTarget Version="[11.0,]" Id="Microsoft.VisualStudio.Ultimate" />
-    <InstallationTarget Version="[11.0,]" Id="Microsoft.VisualStudio.Premium" />
+    <InstallationTarget Version="[11.0,)" Id="Microsoft.VisualStudio.Pro" />
+    <InstallationTarget Version="[11.0,)" Id="Microsoft.VisualStudio.Ultimate" />
+    <InstallationTarget Version="[11.0,)" Id="Microsoft.VisualStudio.Premium" />
   </Installation>
   <Dependencies>
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="4.5" />
@@ -20,4 +20,7 @@
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
 </PackageManifest>
