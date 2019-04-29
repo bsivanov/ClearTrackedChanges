@@ -1,6 +1,7 @@
-﻿using EnvDTE;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.TextManager.Interop;
 using System;
+using System.Collections;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
@@ -57,8 +58,7 @@ namespace BorislavIvanov.ClearTrackedChanges
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
-            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (null != mcs)
+            if (GetService(typeof(IMenuCommandService)) is OleMenuCommandService mcs)
             {
                 // Create the command for the menu item.
                 CommandID menuCommandID = new CommandID(GuidList.guidClearTrackedChangesCmdSet, (int)PkgCmdIDList.cmdidClearTrackedChanges);
@@ -75,15 +75,24 @@ namespace BorislavIvanov.ClearTrackedChanges
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            DTE vsEnvironment = (DTE)GetService(typeof(DTE));
+            IVsTextManager3 textManager = this.GetService(typeof(VsTextManagerClass)) as IVsTextManager3;
 
-            var trackChangesProperty = vsEnvironment.Properties["TextEditor", "General"].Item("TrackChanges");
-            if (trackChangesProperty != null && Convert.ToBoolean(trackChangesProperty.Value))
+            VIEWPREFERENCES3[] viewPreferences3Array = new VIEWPREFERENCES3[1];
+            FONTCOLORPREFERENCES2[] fontColorPreferences2Array = new FONTCOLORPREFERENCES2[1];
+            FRAMEPREFERENCES2[] framePreferences2Array = new FRAMEPREFERENCES2[1];
+            LANGPREFERENCES2[] langPreferences2Array = new LANGPREFERENCES2[1];
+
+            textManager.GetUserPreferences3(viewPreferences3Array, framePreferences2Array, langPreferences2Array, fontColorPreferences2Array);
+
+            VIEWPREFERENCES3 viewPreferences3 = viewPreferences3Array[0];
+            if (viewPreferences3.fTrackChanges == 1)
             {
-                trackChangesProperty.Value = false;
-                trackChangesProperty.Value = true;
+                viewPreferences3.fTrackChanges = 0;
+                textManager.SetUserPreferences3(new VIEWPREFERENCES3[] { viewPreferences3 }, framePreferences2Array, langPreferences2Array, fontColorPreferences2Array);
+
+                viewPreferences3.fTrackChanges = 1;
+                textManager.SetUserPreferences3(new VIEWPREFERENCES3[] { viewPreferences3 }, framePreferences2Array, langPreferences2Array, fontColorPreferences2Array);
             }
         }
-
     }
 }
