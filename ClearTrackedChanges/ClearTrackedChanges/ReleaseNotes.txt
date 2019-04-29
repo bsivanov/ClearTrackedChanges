@@ -1,3 +1,6 @@
+v 1.1.0
+Add support for Visual Studio 2019, using the IVsTextManager3 API.
+
 v. 1.0.3
 Drop support for Visual Studio 2019 due to known issue.
 
