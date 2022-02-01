@@ -1,14 +1,18 @@
-v 1.1.0
+v.2.0.0
+Add support for Visual Studio 2022.
+Drop support for Visual Studio 2015 and below. You can install compatible version from https://github.com/bsivanov/ClearTrackedChanges/releases/tag/v1.1.0.
+
+v.1.1.0
 Add support for Visual Studio 2019, using the IVsTextManager3 API.
 
-v. 1.0.3
+v.1.0.3
 Drop support for Visual Studio 2019 due to known issue.
 
-v. 1.0.2
-Extension upgraded to support Visual Studio 2017.
+v.1.0.2
+Add support for Visual Studio 2017.
 
-v. 1.0.1
-Extension upgraded to support Visual Studio 2013.
+v.1.0.1
+Add support for Visual Studio 2013.
 
-v. 1.0.0
+v.1.0.0
 Initial version.
